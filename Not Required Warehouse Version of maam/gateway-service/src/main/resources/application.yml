@@ -1,0 +1,24 @@
+server:
+  port: 3085
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+      - id: customerModule
+        uri: http://localhost:3005/
+        predicates:
+        - Path=/warehouses/**
+      - id: orderModule
+        uri: http://localhost:3002/
+        predicates:
+        - Path=/orders/**
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:3000/eureka
+  registerWithEureka:
+       - true
+  fetchRegistry:
+       - true
